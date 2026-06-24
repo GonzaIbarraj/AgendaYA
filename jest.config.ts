@@ -1,3 +1,4 @@
+import type {Config} from 'jest'
 import nextJest from 'next/jest.js'
 
 const createJestConfig = nextJest({
@@ -6,7 +7,7 @@ const createJestConfig = nextJest({
 })
 
 // Configuraciones personalizadas para pasar a Jest
-const config = {
+const config: Config = {
   coverageProvider: 'v8',
   testEnvironment: 'jsdom',
 }
