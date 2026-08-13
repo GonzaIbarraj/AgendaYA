@@ -8,7 +8,7 @@ Diseñada para profesionales independientes y clientes:
 
 ---
 
-## 📖 Guía Rápida para el Equipo de Desarrollo
+## 📖 Guía Rápida
 
 Para consultar la documentación completa de todas las nuevas funcionalidades de backend, frontend, endpoints de la API y suite de pruebas desarrolladas en esta rama, ingresá a:
 
