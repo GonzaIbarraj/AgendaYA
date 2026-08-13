@@ -9,7 +9,6 @@ export async function POST(request: Request) {
     const body = await request.json();
     const {
       slug,
-      eventTypeId,
       eventTitle,
       date, // YYYY-MM-DD
       time, // HH:MM

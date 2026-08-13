@@ -18,7 +18,7 @@ export default function LoginPage() {
 
   // Estados de seguridad US_002 (intentos fallidos, bloqueo y Captcha)
   const [failedAttempts, setFailedAttempts] = useState(0);
-  const [isBlocked, setIsBlocked] = useState(false);
+  const [, setIsBlocked] = useState(false);
   const [requiresCaptcha, setRequiresCaptcha] = useState(false);
   const [captchaSolved, setCaptchaSolved] = useState(false);
   const [captchaAnswer, setCaptchaAnswer] = useState("");
