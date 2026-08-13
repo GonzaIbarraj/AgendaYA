@@ -71,7 +71,7 @@ export async function GET(
           id: user.id,
           name: user.name || "Dra. Maria Garcia",
           specialty: "Psicología Clínica",
-          bio: "Bienvenido a mi agenda online. Selecciona un horario disponible para agendar tu cita.",
+          bio: "Especialista en terapia cognitivo-conductual con amplia experiencia.",
           photoUrl: user.photoUrl,
           publicSlug: user.publicSlug,
           eventTypes: eventTypesList,
