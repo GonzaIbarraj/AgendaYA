@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                      String   @id @default(uuid())
+  email                   String   @unique
+  passwordHash            String
+  name                    String?
+  photoUrl                String?
+  timezone                String   @default("(UTC-03:00) Buenos Aires")
+  publicSlug              String?  @unique
+  isEmailConfirmed        Boolean  @default(false)
+  activationToken         String?
+  activationTokenExpires  DateTime?
+  failedLoginAttempts     Int      @default(0)
+  isBlocked               Boolean  @default(false)
+  requiresCaptcha         Boolean  @default(false)
+  lastLoginAt             DateTime?
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+
+  passwordResetTokens     PasswordResetToken[]
+  eventTypes              EventType[]
+  availabilities          Availability[]
+  appointments            Appointment[]
+}
+
+model PasswordResetToken {
+  id        String   @id @default(uuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  isValid   Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model EventType {
+  id              String        @id @default(uuid())
+  userId          String
+  title           String
+  durationMinutes Int
+  description     String?
+  isActive        Boolean       @default(true)
+  createdAt       DateTime      @default(now())
+
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  appointments    Appointment[]
+}
+
+model Availability {
+  id        String @id @default(uuid())
+  userId    String
+  dayOfWeek Int    // 0 = Domingo, 1 = Lunes, ..., 6 = Sábado
+  startTime String // ej: "09:00"
+  endTime   String // ej: "17:00"
+
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Appointment {
+  id          String   @id // RES-YYYYMMDD-XXXX
+  userId      String
+  eventTypeId String
+  clientName  String
+  clientEmail String
+  clientPhone String?
+  clientNotes String?
+  dateTime    DateTime
+  status      String   @default("CONFIRMADA") // CONFIRMADA, CANCELADA
+
+  createdAt   DateTime @default(now())
+
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  eventType   EventType @relation(fields: [eventTypeId], references: [id], onDelete: Cascade)
+}

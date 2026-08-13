@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AgendaYA - Sistema de Gestión de Agenda y Reservas
 
-## Getting Started
+AgendaYA es una plataforma web desarrollada con **Next.js 16 (App Router)**, **React 19**, **TypeScript**, **Tailwind CSS v4**, **Prisma ORM** y **Jest**.
 
-First, run the development server:
+Diseñada para profesionales independientes y clientes:
+- **Vista Desktop**: Panel de administración privado para configurar la agenda, ver estadísticas de citas y editar el perfil profesional.
+- **Vista Mobile-First**: Flujo de reserva pública rápido e intuitivo para invitados (sin registro obligatorio), con un máximo de 4 pasos e interfaces táctiles adaptadas.
 
+---
+
+## 📖 Guía Rápida para el Equipo de Desarrollo
+
+Para consultar la documentación completa de todas las nuevas funcionalidades de backend, frontend, endpoints de la API y suite de pruebas desarrolladas en esta rama, ingresá a:
+
+👉 **[NUEVAS_FUNCIONALIDADES.md](./NUEVAS_FUNCIONALIDADES.md)**
+
+---
+
+## 🚀 Inicio Rápido Local
+
+### 1. Clonar e Instalar Dependencias
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Configurar Variables de Entorno y Base de Datos
+Asegurate de contar con el archivo `.env` en la raíz del proyecto:
+```env
+DATABASE_URL="file:./dev.db"
+JWT_SECRET="agendaya-secret-key-change-in-production"
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Luego inicializá la base de datos y poblala con el usuario de prueba:
+```bash
+npx prisma db push
+node scripts/seed.cjs
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3. Iniciar Servidor de Desarrollo
+```bash
+npm run dev
+```
+Accedé a **`http://localhost:3000`** en tu navegador.
 
-## Learn More
+### 4. Ejecutar Suite de Pruebas (Jest)
+```bash
+npm test
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🔑 Credenciales de Prueba
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **URL de Login**: `http://localhost:3000/login`
+- **Email**: `pepelopez@gmail.com`
+- **Contraseña**: `ClaveValida123!`
+- **Enlace de Reserva Pública**: `http://localhost:3000/pepe-lopez`
