@@ -90,7 +90,7 @@ export default function RegisterPage() {
 
         {registrationSuccess ? (
           /* Escenario de Exito - Pantalla de Confirmación de Email (TP1 p.6) */
-          <div className="space-y-6 text-center animate-fadeIn">
+          <div data-cy="register-success-message" className="space-y-6 text-center animate-fadeIn">
             <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 mx-auto flex items-center justify-center">
               <Mail className="w-6 h-6" />
             </div>
@@ -120,6 +120,7 @@ export default function RegisterPage() {
             <div className="pt-2">
               <Link
                 href="/login"
+                data-cy="nav-login"
                 className="inline-flex justify-center items-center w-full py-2.5 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm rounded-xl transition-colors shadow-sm"
               >
                 Ir a Iniciar sesión
@@ -136,13 +137,14 @@ export default function RegisterPage() {
 
             {/* Mensaje de Error de Servidor (ej: Email ya registrado - US_001 Escenario 4) */}
             {serverError && (
-              <div className="p-3.5 bg-rose-50 border border-rose-200 rounded-xl flex items-start space-x-2.5 text-rose-700 text-xs">
+              <div data-cy="register-error-message" className="p-3.5 bg-rose-50 border border-rose-200 rounded-xl flex items-start space-x-2.5 text-rose-700 text-xs">
                 <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
                 <div className="flex-1">
                   <span>{serverError}</span>
                   {serverError.includes("iniciar sesión") && (
                     <Link
                       href="/login"
+                      data-cy="nav-login"
                       className="block mt-1 font-semibold underline hover:text-rose-900"
                     >
                       Ir a inicio de sesión
@@ -161,6 +163,7 @@ export default function RegisterPage() {
                 </div>
                 <input
                   type="email"
+                  data-cy="register-email-input"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   onBlur={() => setEmailTouched(true)}
@@ -188,6 +191,7 @@ export default function RegisterPage() {
                 </div>
                 <input
                   type={showPassword ? "text" : "password"}
+                  data-cy="register-password-input"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Ingrese su contraseña"
@@ -241,6 +245,7 @@ export default function RegisterPage() {
                 </div>
                 <input
                   type={showConfirmPassword ? "text" : "password"}
+                  data-cy="register-confirm-password-input"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   onBlur={() => setConfirmPasswordTouched(true)}
@@ -269,6 +274,7 @@ export default function RegisterPage() {
             {/* Botón de Enviar */}
             <button
               type="submit"
+              data-cy="register-submit-button"
               disabled={isPending || !isFormValid}
               className={`w-full py-3 px-4 text-sm font-semibold rounded-xl text-white transition-all shadow-sm ${
                 isFormValid && !isPending
@@ -282,7 +288,7 @@ export default function RegisterPage() {
             {/* Footer */}
             <div className="text-center pt-2 text-xs text-slate-500">
               <span>Ya tiene una cuenta? </span>
-              <Link href="/login" className="font-semibold text-blue-600 hover:underline">
+              <Link href="/login" data-cy="nav-login" className="font-semibold text-blue-600 hover:underline">
                 Iniciar sesión
               </Link>
             </div>

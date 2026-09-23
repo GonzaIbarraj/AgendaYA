@@ -99,7 +99,7 @@ export default function LoginPage() {
 
           {/* Mensaje de Error Genérico (TP1 p.7, US_002 Escenario 2) */}
           {serverError && (
-            <div className="p-3.5 bg-rose-50 border border-rose-200 rounded-xl flex items-start space-x-2.5 text-rose-700 text-xs animate-fadeIn">
+            <div data-cy="login-error-message" className="p-3.5 bg-rose-50 border border-rose-200 rounded-xl flex items-start space-x-2.5 text-rose-700 text-xs animate-fadeIn">
               <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
               <div className="flex-1">
                 <span>{serverError}</span>
@@ -156,6 +156,7 @@ export default function LoginPage() {
               </div>
               <input
                 type="email"
+                data-cy="login-email-input"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 onBlur={() => setEmailTouched(true)}
@@ -191,6 +192,7 @@ export default function LoginPage() {
               </div>
               <input
                 type={showPassword ? "text" : "password"}
+                data-cy="login-password-input"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Ingrese su contraseña"
@@ -223,6 +225,7 @@ export default function LoginPage() {
           {/* Botón de Iniciar Sesión */}
           <button
             type="submit"
+            data-cy="login-submit-button"
             disabled={isPending || !canSubmit}
             className={`w-full py-3 px-4 text-sm font-semibold rounded-xl text-white transition-all shadow-sm ${
               canSubmit && !isPending
@@ -236,7 +239,7 @@ export default function LoginPage() {
           {/* Footer */}
           <div className="text-center pt-2 text-xs text-slate-500">
             <span>¿No tiene una cuenta? </span>
-            <Link href="/register" className="font-semibold text-blue-600 hover:underline">
+            <Link href="/register" data-cy="nav-register" className="font-semibold text-blue-600 hover:underline">
               Registrarse
             </Link>
           </div>
