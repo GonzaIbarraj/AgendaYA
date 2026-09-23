@@ -18,6 +18,10 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
     "scripts/**",
+    "cypress.config.js",
+    "cypress/**",
+    "tests/**",
+    "frontend/**",
   ]),
 ]);
 

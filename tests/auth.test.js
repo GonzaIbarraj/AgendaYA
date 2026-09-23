@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 const { validarEmail, validarPassword, evaluarIntentosLogin } = require('../src/auth');
 
 describe('Pruebas Unitarias M01 - Autenticación y Perfil (Tarea C)', () => {
@@ -40,7 +41,7 @@ describe('Pruebas Unitarias M01 - Autenticación y Perfil (Tarea C)', () => {
     expect(resultado.error).toBe('La contraseña debe tener entre 8 y 64 caracteres');
   });
 
-  // Test Extra: Evaluar bloqueo de 5 intentos fallidos
+  // Test 6: Caso Límite - Evaluación de Bloqueo tras 5to Intento Fallido
   it('CP-U06: evaluarIntentosLogin activa isBlocked y requiresCaptcha al alcanzar el 5to intento fallido', () => {
     const resultado = evaluarIntentosLogin(4, false);
     expect(resultado.attempts).toBe(5);
