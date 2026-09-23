@@ -49,7 +49,7 @@ export default function DashboardAgendaPage() {
     <div className="space-y-8 font-sans">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">Bienvenido, {userName}</h1>
+        <h1 data-cy="dashboard-welcome" className="text-2xl font-bold text-slate-900">Bienvenido, {userName}</h1>
         <p className="text-sm text-slate-500 mt-1">Aqui esta el resumen de su agenda</p>
       </div>
 

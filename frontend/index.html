@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgendaYA - M01 Autenticación y Perfil</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div className="container" id="app">
+    <!-- Pantalla de Registro -->
+    <section id="register-view" className="card">
+      <div className="header">
+        <span className="icon">👤</span>
+        <h1>Bienvenido</h1>
+        <p className="subtitle">Plataforma para profesionales</p>
+      </div>
+
+      <form id="register-form">
+        <h2>Crear cuenta</h2>
+        <p className="form-sub">Ingrese sus datos para registrarse</p>
+
+        <div id="register-error" data-cy="register-error-message" className="alert alert-error hidden"></div>
+        <div id="register-success" data-cy="register-success-message" className="alert alert-success hidden"></div>
+
+        <div className="form-group">
+          <label htmlFor="reg-email">Email</label>
+          <input type="email" id="reg-email" data-cy="register-email-input" placeholder="nombre@ejemplo.com" required />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="reg-password">Contraseña</label>
+          <input type="password" id="reg-password" data-cy="register-password-input" placeholder="Ingrese su contraseña" required />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="reg-confirm-password">Confirmar contraseña</label>
+          <input type="password" id="reg-confirm-password" data-cy="register-confirm-password-input" placeholder="Confirme su contraseña" required />
+        </div>
+
+        <button type="submit" id="reg-submit-btn" data-cy="register-submit-button" className="btn btn-primary">Crear cuenta</button>
+
+        <div className="footer-link">
+          <span>¿Ya tiene una cuenta? </span>
+          <a href="#" id="goto-login" data-cy="nav-login">Iniciar sesión</a>
+        </div>
+      </form>
+    </section>
+
+    <!-- Pantalla de Login -->
+    <section id="login-view" className="card hidden">
+      <div className="header">
+        <span className="icon">🔒</span>
+        <h1>Bienvenido</h1>
+        <p className="subtitle">Plataforma para profesionales</p>
+      </div>
+
+      <form id="login-form">
+        <h2>Iniciar sesión</h2>
+        <p className="form-sub">Ingrese sus credenciales para acceder</p>
+
+        <div id="login-error" data-cy="login-error-message" className="alert alert-error hidden"></div>
+
+        <div className="form-group">
+          <label htmlFor="login-email">Email</label>
+          <input type="email" id="login-email" data-cy="login-email-input" placeholder="nombre@ejemplo.com" required />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="login-password">Contraseña</label>
+          <input type="password" id="login-password" data-cy="login-password-input" placeholder="Ingrese su contraseña" required />
+        </div>
+
+        <button type="submit" id="login-submit-btn" data-cy="login-submit-button" className="btn btn-primary">Iniciar sesión</button>
+
+        <div className="footer-link">
+          <span>¿No tiene una cuenta? </span>
+          <a href="#" id="goto-register" data-cy="nav-register">Registrarse</a>
+        </div>
+      </form>
+    </section>
+
+    <!-- Pantalla de Dashboard / Sesión Iniciada -->
+    <section id="dashboard-view" className="card hidden">
+      <div className="header">
+        <span className="icon">📅</span>
+        <h1 id="welcome-title" data-cy="dashboard-welcome">Bienvenido, Pepe</h1>
+        <p className="subtitle">Aqui esta el resumen de su agenda</p>
+      </div>
+
+      <div className="dashboard-content">
+        <p className="status-badge">Sesión activa correctamente</p>
+        <button id="logout-btn" data-cy="logout-button" className="btn btn-secondary">Cerrar sesión</button>
+      </div>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
