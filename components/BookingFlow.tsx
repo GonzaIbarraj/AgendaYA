@@ -216,13 +216,13 @@ export function BookingFlow({ slug }: { slug: string }) {
 
         {/* PANTALLA ÉXITO POST-CONFIRMACIÓN (TP1 p.27) */}
         {bookingSuccess ? (
-          <div className="p-8 text-center space-y-6 animate-fadeIn">
+          <div data-cy="booking-success-card" className="p-8 text-center space-y-6 animate-fadeIn">
             <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 mx-auto flex items-center justify-center">
               <CheckCircle2 className="w-8 h-8" />
             </div>
 
             <div className="space-y-1">
-              <h2 className="text-xl font-bold text-slate-900">Reserva confirmada</h2>
+              <h2 data-cy="booking-success-title" className="text-xl font-bold text-slate-900">Reserva confirmada</h2>
               <p className="text-xs text-slate-500">Tu turno ha sido registrado exitosamente</p>
             </div>
 
@@ -267,7 +267,7 @@ export function BookingFlow({ slug }: { slug: string }) {
                 )}
                 <div className="col-span-2 pt-1 border-t border-slate-200/60">
                   <span className="text-[10px] uppercase font-semibold text-slate-400 block">ID Reserva</span>
-                  <span className="font-mono text-blue-600 font-bold">{bookingSuccess.idReserva}</span>
+                  <span data-cy="booking-id-text" className="font-mono text-blue-600 font-bold">{bookingSuccess.idReserva}</span>
                 </div>
               </div>
             </div>
@@ -331,6 +331,7 @@ export function BookingFlow({ slug }: { slug: string }) {
 
                 <div className="space-y-3 pt-2">
                   <button
+                    data-cy="booking-start-button"
                     onClick={() => setStep(2)}
                     className="w-full py-3 px-4 bg-sky-500 hover:bg-sky-600 active:bg-sky-700 text-white font-semibold text-sm rounded-xl transition-all shadow-sm"
                   >
@@ -376,6 +377,7 @@ export function BookingFlow({ slug }: { slug: string }) {
                   {professional.eventTypes.map((ev) => (
                     <button
                       key={ev.id}
+                      data-cy="event-type-card"
                       onClick={() => {
                         setSelectedEvent(ev);
                         setStep(3);
@@ -471,6 +473,7 @@ export function BookingFlow({ slug }: { slug: string }) {
                       return (
                         <button
                           key={d}
+                          data-cy={`calendar-day-${d}`}
                           disabled={!isAvailable}
                           onClick={() => {
                             setSelectedDay(d);
@@ -515,6 +518,7 @@ export function BookingFlow({ slug }: { slug: string }) {
                         return (
                           <button
                             key={slot.time}
+                            data-cy={`time-slot-${slot.time}`}
                             disabled={!slot.available}
                             onClick={() => setSelectedTime(slot.time)}
                             className={`py-2 text-xs font-bold rounded-xl transition-all ${
@@ -536,6 +540,7 @@ export function BookingFlow({ slug }: { slug: string }) {
                 {/* Botón de Confirmar paso */}
                 <div className="pt-2">
                   <button
+                    data-cy="confirm-datetime-button"
                     disabled={!selectedDay || !selectedTime}
                     onClick={() => setStep(4)}
                     className={`w-full py-3 px-4 font-semibold text-xs rounded-xl text-white transition-all shadow-sm ${
@@ -589,6 +594,7 @@ export function BookingFlow({ slug }: { slug: string }) {
                       </div>
                       <input
                         type="text"
+                        data-cy="guest-name-input"
                         value={clientName}
                         onChange={(e) => setClientName(e.target.value)}
                         onBlur={() => setNameTouched(true)}
@@ -616,6 +622,7 @@ export function BookingFlow({ slug }: { slug: string }) {
                       </div>
                       <input
                         type="email"
+                        data-cy="guest-email-input"
                         value={clientEmail}
                         onChange={(e) => setClientEmail(e.target.value)}
                         onBlur={() => setEmailTouched(true)}
@@ -643,6 +650,7 @@ export function BookingFlow({ slug }: { slug: string }) {
                       </div>
                       <input
                         type="tel"
+                        data-cy="guest-phone-input"
                         value={clientPhone}
                         onChange={(e) => setClientPhone(e.target.value)}
                         placeholder="+54 9 11 1234-5678"
@@ -662,6 +670,7 @@ export function BookingFlow({ slug }: { slug: string }) {
                       </div>
                       <textarea
                         rows={2}
+                        data-cy="guest-notes-input"
                         value={clientNotes}
                         onChange={(e) => setClientNotes(e.target.value)}
                         placeholder="Escribe aquí si tienes alguna consulta o información adicional..."
@@ -673,6 +682,7 @@ export function BookingFlow({ slug }: { slug: string }) {
 
                 <div className="pt-2 space-y-3">
                   <button
+                    data-cy="review-booking-button"
                     disabled={!isGuestFormValid}
                     onClick={() => {
                       setNameTouched(true);
@@ -751,6 +761,7 @@ export function BookingFlow({ slug }: { slug: string }) {
 
                 <div className="pt-2 space-y-3">
                   <button
+                    data-cy="confirm-booking-button"
                     disabled={submitting}
                     onClick={handleConfirmBooking}
                     className="w-full py-3 px-4 bg-sky-500 hover:bg-sky-600 active:bg-sky-700 text-white font-semibold text-sm rounded-xl transition-all shadow-sm"
