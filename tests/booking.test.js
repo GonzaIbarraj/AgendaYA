@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
-const { confirmarReserva, generarIdReserva, validarNombreInvitado } = require('../src/booking');
+const {
+  confirmarReserva,
+  generarIdReserva,
+  validarNombreInvitado,
+  esFechaReservaValida,
+  cumpleAntelacionMinima
+} = require('../src/booking');
 
 describe('Pruebas Unitarias M04 - Proceso de Reserva (Booking Público)', () => {
 
@@ -66,5 +72,54 @@ describe('Pruebas Unitarias M04 - Proceso de Reserva (Booking Público)', () => 
 
     expect(invalidoCorto.valido).toBe(false);
     expect(invalidoCorto.error).toBe('El nombre debe tener al menos 2 caracteres');
+  });
+});
+
+//TEST sobre validacion de fechas
+
+describe('Validación de Fecha y Antelación', () => {
+
+  it('Aceptacion de una fecha futura', () => {
+    const ahora = new Date('2026-09-23T10:00:00');
+    const fechaReserva = new Date('2026-09-24T10:00:00');
+
+    expect(
+      esFechaReservaValida(fechaReserva, ahora)
+    ).toBe(true);
+  });
+
+  it('Rechazo de una fecha pasada', () => {
+    const ahora = new Date('2026-09-23T10:00:00');
+    const fechaReserva = new Date('2026-09-22T10:00:00');
+
+    expect(
+      esFechaReservaValida(fechaReserva, ahora)
+    ).toBe(false);
+  });
+
+  it('Rechazo de una reserva que se realiza en el mismo momento', () => {
+    const ahora = new Date('2026-09-23T10:00:00');
+
+    expect(
+      esFechaReservaValida(ahora, ahora)
+    ).toBe(false);
+  });
+
+  it('Aceptacion de una reserva que cumple la antelación mínima', () => {
+    const ahora = new Date('2026-09-23T10:00:00');
+    const fechaReserva = new Date('2026-09-23T13:00:00');
+
+    expect(
+      cumpleAntelacionMinima(fechaReserva, ahora, 2)
+    ).toBe(true);
+  });
+
+  it('Rechazo de una reserva que no cumple con la antelación mínima', () => {
+    const ahora = new Date('2026-09-23T10:00:00');
+    const fechaReserva = new Date('2026-09-23T11:00:00');
+
+    expect(
+      cumpleAntelacionMinima(fechaReserva, ahora, 2)
+    ).toBe(false);
   });
 });
