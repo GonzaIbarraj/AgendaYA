@@ -95,7 +95,7 @@ export function BookingFlow({ slug }: { slug: string }) {
     );
   }
 
-  if (errorMsg || !professional) {
+  if (!professional) {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4 font-sans">
         <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 text-center max-w-md space-y-4">
@@ -208,10 +208,12 @@ export function BookingFlow({ slug }: { slug: string }) {
         
         {/* Banner de Error si aplica */}
         {errorMsg && (
-          <div className="p-4 bg-rose-50 border-b border-rose-200 flex items-center space-x-2 text-rose-800 text-xs font-medium">
-            <AlertCircle className="w-4 h-4 text-rose-600 flex-shrink-0" />
-            <span>{errorMsg}</span>
-          </div>
+        <div
+          data-cy="booking-error-message"
+          className="p-4 bg-rose-50 border-b border-rose-200 flex items-center space-x-2 text-rose-800 text-xs font-medium">
+          <AlertCircle className="w-4 h-4 text-rose-600 flex-shrink-0" />
+          <span>{errorMsg}</span>
+        </div>
         )}
 
         {/* PANTALLA ÉXITO POST-CONFIRMACIÓN (TP1 p.27) */}

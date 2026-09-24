@@ -93,9 +93,29 @@ function confirmarReserva(turnoDisponible, servidorResponde, datosReserva, numer
     datosReserva,
   };
 }
+/*Funciones que validan la validez de las fechas */
+function esFechaReservaValida(fechaReserva, fechaActual) {
+  return fechaReserva > fechaActual;
+}
+
+function cumpleAntelacionMinima(
+  fechaReserva,
+  fechaActual,
+  horasMinimas
+) {
+  const diferenciaMs =
+    fechaReserva.getTime() - fechaActual.getTime();
+
+  const diferenciaHoras =
+    diferenciaMs / (1000 * 60 * 60);
+
+  return diferenciaHoras >= horasMinimas;
+}
 
 module.exports = {
-  validarNombreInvitado,
-  generarIdReserva,
   confirmarReserva,
+  generarIdReserva,
+  validarNombreInvitado,
+  esFechaReservaValida,
+  cumpleAntelacionMinima
 };
