@@ -109,8 +109,7 @@ export default function LoginPage() {
 
           {/* Banner de Bloqueo por Límite de Seguridad (US_002 Escenario 3 / CP-M01-002) */}
           {requiresCaptcha && (
-            <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl space-y-3">
-              <div className="flex items-center space-x-2 text-amber-800 font-semibold text-xs">
+              <div data-cy="captcha-container" className="p-4 bg-amber-50 border border-amber-200 rounded-xl space-y-3">              <div className="flex items-center space-x-2 text-amber-800 font-semibold text-xs">
                 <ShieldAlert className="w-4 h-4 text-amber-600 flex-shrink-0" />
                 <span>Control de Seguridad (5to intento fallido)</span>
               </div>
@@ -125,6 +124,7 @@ export default function LoginPage() {
                 <div className="flex items-center space-x-2">
                   <input
                     type="text"
+                    data-cy="captcha-input"
                     value={captchaAnswer}
                     onChange={(e) => {
                       setCaptchaAnswer(e.target.value);
