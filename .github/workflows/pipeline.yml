@@ -1,12 +1,13 @@
-name: Pruebas y Build de AgendaYA
+name: AgendaYA CI Pipeline - Plan de Mantenimiento (TP7)
 
 on:
   push:
+    branches: [ "main", "develop", "hotfix/*" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "develop", "hotfix/*" ]
 
 jobs:
-  testing-y-build:
+  build-and-test:
     runs-on: ubuntu-latest
 
     strategy:
@@ -14,23 +15,26 @@ jobs:
         node-version: ['20.x']
 
     steps:
-    - name: Clonar el repositorio
+    - name: 1. Clonar el repositorio
       uses: actions/checkout@v4
 
-    - name: Configurar Node.js ${{ matrix.node-version }}
+    - name: 2. Configurar Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
 
-    - name: Instalar dependencias
+    - name: 3. Instalar dependencias
       run: npm ci
 
-    - name: Revisar calidad del código (Lint)
+    - name: 4. Verificar formato y tipos del código (Format & Type Check)
+      run: npx tsc --noEmit
+
+    - name: 5. Linter (Calidad de código)
       run: npm run lint
 
-    - name: Ejecutar los Casos de Prueba (Jest)
+    - name: 6. Tests Unitarios (Jest)
       run: npm test
 
-    - name: Verificar que el proyecto compile (Build)
+    - name: 7. Compilación y Build (Next.js)
       run: npm run build

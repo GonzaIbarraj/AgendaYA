@@ -48,4 +48,13 @@ describe('Pruebas Unitarias M01 - Autenticación y Perfil (Tarea C)', () => {
     expect(resultado.isBlocked).toBe(true);
     expect(resultado.requiresCaptcha).toBe(true);
   });
+
+  // Test de Regresión - INC-M01-001 (Reproducción del defecto de producción)
+  it('INC-M01-001: evaluarIntentosLogin NO debe bloquear al usuario en el 3er intento fallido, sino en el 5to', () => {
+    // Intento 3 (partiendo de 2 intentos previos fallidos)
+    const intento3 = evaluarIntentosLogin(2, false);
+    expect(intento3.attempts).toBe(3);
+    expect(intento3.isBlocked).toBe(false);
+    expect(intento3.requiresCaptcha).toBe(false);
+  });
 });
