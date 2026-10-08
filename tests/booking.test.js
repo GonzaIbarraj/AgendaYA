@@ -21,7 +21,7 @@ describe('Pruebas Unitarias M04 - Proceso de Reserva (Booking Público)', () => 
   // Test 1: Confirmación Exitosa de Reserva (Flujo Feliz)
   it('CP-U07: confirmarReserva retorna estado CONFIRMADA y reservaRegistrada=true cuando el turno está libre y el servidor responde', () => {
     const resultado = confirmarReserva(true, true, datosReservaBase, 1);
-    
+
     expect(resultado.estado).toBe('CONFIRMADA');
     expect(resultado.reservaRegistrada).toBe(true);
     expect(resultado.turnoBloqueado).toBe(true);
@@ -32,7 +32,7 @@ describe('Pruebas Unitarias M04 - Proceso de Reserva (Booking Público)', () => 
   // Test 2: Generación del ID Único de Reserva
   it('CP-U08: generarIdReserva produce un identificador válido con formato RES-YYYYMMDD-XXXX', () => {
     const idReserva = generarIdReserva('2026-04-28', 15);
-    
+
     expect(idReserva).toBe('RES-20260428-0015');
     expect(idReserva).toMatch(/^RES-\d{8}-\d{4}$/);
   });
@@ -40,7 +40,7 @@ describe('Pruebas Unitarias M04 - Proceso de Reserva (Booking Público)', () => 
   // Test 3: Manejo de Conflicto por Horario Ocupado
   it('CP-U09: confirmarReserva retorna HORARIO_OCUPADO y redirigirAlCalendario=true cuando el turno ya no está disponible', () => {
     const resultado = confirmarReserva(false, true, datosReservaBase);
-    
+
     expect(resultado.estado).toBe('HORARIO_OCUPADO');
     expect(resultado.reservaRegistrada).toBe(false);
     expect(resultado.redirigirAlCalendario).toBe(true);
@@ -50,7 +50,7 @@ describe('Pruebas Unitarias M04 - Proceso de Reserva (Booking Público)', () => 
   // Test 4: Manejo de Fallo del Servidor con Conservación de Datos
   it('CP-U10: confirmarReserva retorna ERROR_SERVIDOR y reintentoHabilitado=true ante fallo de red/servidor', () => {
     const resultado = confirmarReserva(true, false, datosReservaBase);
-    
+
     expect(resultado.estado).toBe('ERROR_SERVIDOR');
     expect(resultado.reservaRegistrada).toBe(false);
     expect(resultado.reintentoHabilitado).toBe(true);
@@ -122,4 +122,13 @@ describe('Validación de Fecha y Antelación', () => {
       cumpleAntelacionMinima(fechaReserva, ahora, 2)
     ).toBe(false);
   });
+});
+
+// Test de Regresión - INC-M04-001 (Reproducción del defecto del incidente)
+it('INC-M04-001: no debe permitir confirmar reserva si el turno ya está ocupado', () => {
+  const resultado = confirmarReserva(false, true, datosReservaBase);
+
+  expect(resultado.estado).toBe('HORARIO_OCUPADO');
+  expect(resultado.reservaRegistrada).toBe(false);
+  expect(resultado.redirigirAlCalendario).toBe(true);
 });

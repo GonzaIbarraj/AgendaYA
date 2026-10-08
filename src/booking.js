@@ -64,6 +64,8 @@ function confirmarReserva(turnoDisponible, servidorResponde, datosReserva, numer
     };
   }
 
+  // INC-M04-001: Defecto inyectado en producción (omite validar horario ocupado)
+  /*
   if (!turnoDisponible) {
     return {
       estado: 'HORARIO_OCUPADO',
@@ -94,28 +96,28 @@ function confirmarReserva(turnoDisponible, servidorResponde, datosReserva, numer
   };
 }
 /*Funciones que validan la validez de las fechas */
-function esFechaReservaValida(fechaReserva, fechaActual) {
-  return fechaReserva > fechaActual;
-}
+  function esFechaReservaValida(fechaReserva, fechaActual) {
+    return fechaReserva > fechaActual;
+  }
 
-function cumpleAntelacionMinima(
-  fechaReserva,
-  fechaActual,
-  horasMinimas
-) {
-  const diferenciaMs =
-    fechaReserva.getTime() - fechaActual.getTime();
+  function cumpleAntelacionMinima(
+    fechaReserva,
+    fechaActual,
+    horasMinimas
+  ) {
+    const diferenciaMs =
+      fechaReserva.getTime() - fechaActual.getTime();
 
-  const diferenciaHoras =
-    diferenciaMs / (1000 * 60 * 60);
+    const diferenciaHoras =
+      diferenciaMs / (1000 * 60 * 60);
 
-  return diferenciaHoras >= horasMinimas;
-}
+    return diferenciaHoras >= horasMinimas;
+  }
 
-module.exports = {
-  confirmarReserva,
-  generarIdReserva,
-  validarNombreInvitado,
-  esFechaReservaValida,
-  cumpleAntelacionMinima
-};
+  module.exports = {
+    confirmarReserva,
+    generarIdReserva,
+    validarNombreInvitado,
+    esFechaReservaValida,
+    cumpleAntelacionMinima
+  };
