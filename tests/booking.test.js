@@ -73,6 +73,15 @@ describe('Pruebas Unitarias M04 - Proceso de Reserva (Booking Público)', () => 
     expect(invalidoCorto.valido).toBe(false);
     expect(invalidoCorto.error).toBe('El nombre debe tener al menos 2 caracteres');
   });
+
+  // Test de Regresión - INC-M04-001 (Reproducción del defecto del incidente)
+  it('INC-M04-001: no debe permitir confirmar reserva si el turno ya está ocupado', () => {
+    const resultado = confirmarReserva(false, true, datosReservaBase);
+
+    expect(resultado.estado).toBe('HORARIO_OCUPADO');
+    expect(resultado.reservaRegistrada).toBe(false);
+    expect(resultado.redirigirAlCalendario).toBe(true);
+  });
 });
 
 //TEST sobre validacion de fechas
@@ -122,13 +131,4 @@ describe('Validación de Fecha y Antelación', () => {
       cumpleAntelacionMinima(fechaReserva, ahora, 2)
     ).toBe(false);
   });
-});
-
-// Test de Regresión - INC-M04-001 (Reproducción del defecto del incidente)
-it('INC-M04-001: no debe permitir confirmar reserva si el turno ya está ocupado', () => {
-  const resultado = confirmarReserva(false, true, datosReservaBase);
-
-  expect(resultado.estado).toBe('HORARIO_OCUPADO');
-  expect(resultado.reservaRegistrada).toBe(false);
-  expect(resultado.redirigirAlCalendario).toBe(true);
 });

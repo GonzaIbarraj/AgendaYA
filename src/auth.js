@@ -67,8 +67,8 @@ function evaluarIntentosLogin(intentosActuales, esCredencialValida) {
   }
 
   const nuevosIntentos = (intentosActuales || 0) + 1;
-  // INC-M01-001: Defecto inyectado en producción - bloquea al 3er intento en lugar del 5to
-  const bloquear = nuevosIntentos >= 3;
+  // INC-M01-001: Corrección de hotfix - Restauración de la regla de negocio
+  const bloquear = nuevosIntentos >= 5;
 
   return {
     attempts: nuevosIntentos,
